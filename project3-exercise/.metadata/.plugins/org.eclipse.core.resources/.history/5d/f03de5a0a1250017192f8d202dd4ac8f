@@ -1,0 +1,12 @@
+package student;
+
+public class MyJson {
+	private Student[] data;
+	private String message;
+	public MyJson(Student[] data, String message) {
+		super();
+		this.data = data;
+		this.message = message;
+	}
+	
+}
