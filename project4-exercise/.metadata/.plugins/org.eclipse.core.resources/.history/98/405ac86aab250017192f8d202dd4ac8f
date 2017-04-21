@@ -1,0 +1,67 @@
+package servletPackage;
+
+import student.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.*;
+
+/**
+ * Servlet implementation class Servlet
+ */
+@WebServlet(description = "This is sample servlet", urlPatterns = { "/Servlet" })
+public class Servlet extends HttpServlet implements javax.servlet.Servlet {
+	private static final long serialVersionUID = 1L;
+	
+	private int count = 0;
+	protected synchronized void increment(){
+		count++;
+	}
+	protected synchronized void decrement(){
+		count--;
+	}
+	protected synchronized int getCount(){
+		return count;
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	Student[] students = {
+    		new Student("20","aaa"),
+    		new Student("50","bbb")};
+	Student student;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf8");
+        response.setCharacterEncoding("utf8");
+        response.setContentType("application/json"); 
+        MyJson myjson = new MyJson(students, "hello from server");
+        Gson gson = new Gson();
+        String output = gson.toJson(myjson);
+        PrintWriter out = response.getWriter();
+        out.print(output);
+    }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name = request.getParameter("name");
+		for(Student s : students){
+			if(s.getName().equals(name) ){
+				student = s;
+			}
+		}		
+		request.setCharacterEncoding("utf8");
+        response.setCharacterEncoding("utf8");
+        response.setContentType("application/json"); 
+        Gson gson = new Gson();
+        String output = gson.toJson(student);
+        PrintWriter out = response.getWriter();
+        out.print(output);
+    }
+
+}

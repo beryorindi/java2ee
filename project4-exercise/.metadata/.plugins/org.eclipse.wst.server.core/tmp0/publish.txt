@@ -1,0 +1,5 @@
+#Tomcat publish data
+#Fri Apr 21 11:18:25 ICT 2017
+org.eclipse.jst.jee.server\:SasmpleServlet=C\:\\xampp\\tomcat\\wtpwebapps\\SasmpleServlet
+org.eclipse.jst.jee.server\:SampleApplication=C\:\\xampp\\tomcat\\wtpwebapps\\SampleApplication
+org.eclipse.jst.jee.server\:ServletFull=C\:\\xampp\\tomcat\\wtpwebapps\\ServletFull

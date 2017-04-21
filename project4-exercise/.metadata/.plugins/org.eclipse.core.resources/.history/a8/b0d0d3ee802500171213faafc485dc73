@@ -1,0 +1,5 @@
+package username;
+@ManagerBean
+public class NameWrapper {
+
+}

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Sample Servlet</title>
+</head>
+<body>
+	I have said <a href="/SasmpleServlet/Servlet">hello</a>
+	
+</body>
+</html>

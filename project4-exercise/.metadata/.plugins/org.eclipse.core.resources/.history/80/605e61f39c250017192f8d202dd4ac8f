@@ -1,0 +1,62 @@
+package servletPackage;
+
+import student.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Servlet
+ */
+@WebServlet(description = "This is sample servlet", urlPatterns = { "/Servlet" })
+public class Servlet extends HttpServlet implements javax.servlet.Servlet {
+	private static final long serialVersionUID = 1L;
+	
+	private int count = 0;
+	protected synchronized void increment(){
+		count++;
+	}
+	protected synchronized void decrement(){
+		count--;
+	}
+	protected synchronized int getCount(){
+		return count;
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+/*	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String searchForm = request.getParameter("searchParam");
+		PrintWriter writer = response.getWriter();
+		writer.println("You searched for "+ searchForm);
+		
+	}*/
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String student = "{\"data\":[{\"name\":\"aaa\", \"id\":\"20\"},{\"name\":\"bbb\", \"id\":\"50\"}],\"message:\" \"hello from server\"}";
+        Student[] students = {
+        		new Student("20","aaa"),
+        		new Student("50","bbb")};
+		request.setCharacterEncoding("utf8");
+        response.setCharacterEncoding("utf8");
+        response.setContentType("application/json"); 
+        PrintWriter out = response.getWriter();
+        out.print(students);
+        
+        /*JSONObject jsonObj = (JSONObject) JSONValue.parse(request.getParameter("para"));
+        System.out.println(jsonObj.get("message"));         
+        JSONObject obj = new JSONObject();
+        obj.put("message", "hello from server");
+        out.print(obj);*/
+
+    }
+
+}
