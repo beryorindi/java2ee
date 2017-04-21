@@ -1,0 +1,41 @@
+package ServletPackage;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(description = "This is sample servlet", urlPatterns = { "/StudentServlet" })
+@MultipartConfig
+public class StudentServlet extends HttpServlet implements javax.servlet.Servlet {
+	private static final long serialVersionUID = 1L;
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	Map<Integer,String> students = new HashMap<Integer,String>();
+	int id = 1;
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getParameter("delKey") == null){
+			String name = request.getParameter("name");
+			students.put(id, name);
+			id++;
+		}else{
+			String delete = request.getParameter("delKey");
+			int del = Integer.parseInt(delete);
+			students.remove(del);
+			if(students.size() == 0){
+				id = 1;
+			}
+		}
+		request.getSession().setAttribute("name", students);
+		request.getRequestDispatcher("/simplecrud.jsp").forward(request, response);
+    }
+}

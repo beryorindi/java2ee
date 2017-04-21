@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+	<title>Refresh-safe CRUD</title>
+</head>
+
+<body>
+	<h:panelGroup rendered="#{!freshsafeCrudBean.edit}">
+		<h3>Add Book</h3>
+		<h:form>
+			<table>
+				<tr>
+					<td>ISBN</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.isbn}" id="isbn" required="true" requiredMessage="ISBN field is mandatory"/></td>
+					<td><h:message style="color:red"></td>
+				</tr>
+				<tr>
+					<td>Title</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.title}" id="title" required="true" requiredMessage="Title field is mandatory"/></td>
+					<td><h:message style="color:red"></td>
+				</tr>
+				<tr>
+					<td>Author</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.author}" /></td>
+				</tr>
+				<tr>
+					<td>Publisher</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.publisher}" /></td>
+				</tr>
+				<tr>
+					<td>Price</td>
+					<td>:</td>
+					<td>$<h:inputText value="#{freshsafeCrudBean.item.price}" id="price" required="true" requiredMessage="Price field is mandatory" /></td>
+					<td><h:message style="color:red"></td>
+				</tr>
+				<tr>
+					<td colspan="3"><h:commandButton value="add" action="#{freshsafeCrudBean.add}" />
+					<h:commandButton value="reset" action="#{freshsafeCrudBean.resetAdd}" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{freshsafeCrudBean.edit}">
+		<h3>Edit book #{bean.item.id}</h3>
+		<h:form>
+			<table>
+				<tr>
+					<td>ISBN</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.isbn}" /></td>
+				</tr>
+				<tr>
+					<td>Title</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.title}" /></td>
+				</tr>
+				<tr>
+					<td>Author</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.author}" /></td>
+				</tr>
+				<tr>
+					<td>Publisher</td>
+					<td>:</td>
+					<td><h:inputText value="#{freshsafeCrudBean.item.publisher}" /></td>
+				</tr>
+				<tr>
+					<td>Price</td>
+					<td>:</td>
+					<td>$<h:inputText value="#{freshsafeCrudBean.item.price}" /></td>
+				</tr>
+				<tr>
+					<td colspan="3"><h:commandButton value="save" action="#{freshsafeCrudBean.saveEdit}" />
+				<h:commandButton value="cancel" action="#{freshsafeCrudBean.cancelEdit}" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</h:panelGroup>
+	<h3>List Book</h3>
+	<h:form rendered="#{not empty freshsafeCrudBean.list}">
+		<h:dataTable value="#{freshsafeCrudBean.list}" var="item">
+			<h:column><f:facet name="header">ID</f:facet>#{item.id}</h:column>
+			<h:column><f:facet name="header">ISBN</f:facet>#{item.isbn}</h:column>
+			<h:column><f:facet name="header">Title</f:facet>#{item.title}</h:column>
+			<h:column><f:facet name="header">Author</f:facet>#{item.author}</h:column>
+			<h:column><f:facet name="header">Publisher</f:facet>#{item.publisher}</h:column>
+			<h:column><f:facet name="header">Price</f:facet>#{item.price}</h:column>
+			<h:column>
+				<h:commandButton value="edit" action="#{freshsafeCrudBean.edit(item)}" />
+			</h:column>
+			<h:column>
+				<h:commandButton value="delete" action="#{freshsafeCrudBean.delete(item)}" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</body>
+</html>
